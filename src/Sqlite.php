@@ -7,7 +7,7 @@ namespace SQLiteDatabase;
 class Sqlite
 {
     private \SQLite3 $connection;
-    private static Sqlite $database;
+    private static $database;
 
     private function __construct()
     {
@@ -19,7 +19,7 @@ class Sqlite
         $this->connection = new \SQLite3($filename, $flags, $encryptionKey);
     }
 
-    private static function getInstance(): Sqlite
+    public static function getInstance(): Sqlite
     {
         if (!self::$database instanceof self) {
             self::$database = new self();

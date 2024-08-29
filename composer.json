@@ -1,6 +1,6 @@
 {
-    "name": "juanvladimir13/sqlite_database",
-    "description": "Dataase",
+    "name": "juanvladimir13/sqlite-database",
+    "description": "Database manage sqlite",
     "type": "library",
     "license": "MIT",
     "autoload": {
