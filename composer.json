@@ -1,0 +1,32 @@
+{
+    "name": "juanvladimir13/sqlite_database",
+    "description": "Dataase",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SQLiteDatabase\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Juan Vladimir",
+            "email": "juanvladimir13@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4",
+        "ext-sqlite3": "*"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "prepend-autoloader": false,
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --xdebug -c phpstan.neon"
+    }
+}
