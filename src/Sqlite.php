@@ -55,34 +55,12 @@ class Sqlite
     /**
      * @return array|false
      */
-    public static function fetchAll(string $sql, int $mode = SQLITE3_ASSOC)
+    public static function fetchAll(string $sql, array $columns = [], int $mode = SQLITE3_ASSOC)
     {
         if (!self::isConnected()) return [];
 
         $statement = self::getInstance()->getConnection()->prepare($sql);
         if ($statement === false) return [];
-
-        $rows = $statement->execute();
-        if ($rows === false) return false;
-
-        $models = [];
-        while ($row = $rows->fetchArray($mode)) {
-            array_push($models, $row);
-        }
-
-        $rows->finalize();
-        return $models;
-    }
-
-    /**
-     * @return array|false
-     */
-    public static function fetchAllQuery(string $sql, array $columns, int $mode = SQLITE3_ASSOC)
-    {
-        if (!self::isConnected()) return false;
-
-        $statement = self::getInstance()->getConnection()->prepare($sql);
-        if ($statement === false) return false;
 
         for ($i = 0; $i < count($columns); $i++) {
             $statement->bindValue($i + 1, $columns[$i]);
@@ -103,9 +81,35 @@ class Sqlite
     /**
      * @return array|false
      */
-    public static function fetchOne(string $sql, array $columns, int $mode = SQLITE3_ASSOC)
+    /*public static function fetchAllQuery(string $sql, array $columns, int $mode = SQLITE3_ASSOC)
     {
-        $rows = self::fetchAllQuery($sql, $columns, $mode);
+        if (!self::isConnected()) return false;
+
+        $statement = self::getInstance()->getConnection()->prepare($sql);
+        if ($statement === false) return false;
+
+        for ($i = 0; $i < count($columns); $i++) {
+            $statement->bindValue($i + 1, $columns[$i]);
+        }
+
+        $rows = $statement->execute();
+        if ($rows === false) return false;
+
+        $models = [];
+        while ($row = $rows->fetchArray($mode)) {
+            array_push($models, $row);
+        }
+
+        $rows->finalize();
+        return $models;
+    }*/
+
+    /**
+     * @return array|false
+     */
+    public static function fetchOne(string $sql, array $columns = [], int $mode = SQLITE3_ASSOC)
+    {
+        $rows = self::fetchAll($sql, $columns, $mode);
         if ($rows === false) return false;
         return count($rows) > 0 ? $rows[0] : [];
     }
@@ -113,7 +117,7 @@ class Sqlite
     /**
      * @return array|false
      */
-    public static function fetchAllAssoc(string $sql, string $key, array $columnsConcat, string $charSeparator = '|', int $mode = SQLITE3_ASSOC)
+    /*public static function fetchAllAssoc(string $sql, string $key, array $columnsConcat, string $charSeparator = '|', int $mode = SQLITE3_ASSOC)
     {
         if (!self::isConnected()) return false;
 
@@ -134,5 +138,5 @@ class Sqlite
 
         $rows->finalize();
         return $models;
-    }
+    }*/
 }
